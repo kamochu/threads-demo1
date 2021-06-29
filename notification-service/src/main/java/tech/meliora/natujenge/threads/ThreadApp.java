@@ -8,6 +8,7 @@ import tech.meliora.natujenge.threads.datasource.impl.HikariDataSourceManager;
 import tech.meliora.natujenge.threads.repository.OrderRepository;
 import tech.meliora.natujenge.threads.sendsms.SMSSender;
 import tech.meliora.natujenge.threads.sendsms.impl.MelioraHTTPSMSSender;
+import tech.meliora.natujenge.threads.sendsms.impl.SMPPSMSSender;
 
 import javax.sql.DataSource;
 
@@ -66,6 +67,7 @@ public class ThreadApp {
                 "iZXhwIjoxOTY0OTU4MzQ1fQ.oN77l1LEIVIg5KK8hPrTI50iTuTUeeb3RpLGZiJTauaBjVak9J4yc4jtsi_lA" +
                 "VL7UY6gkNnIEaeEsNW-4xvR3w";
         SMSSender smsSender = new MelioraHTTPSMSSender(sendSMSEndpoint, apiKey);
+        //SMSSender smsSender = new SMPPSMSSender();
         OrderProcessor orderProcessor = new OrderProcessor(orderRepository, smsSender);
         logger.info("system|finished initializing orderProcessor");
 

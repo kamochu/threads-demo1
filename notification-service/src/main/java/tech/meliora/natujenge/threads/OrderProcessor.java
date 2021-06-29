@@ -6,6 +6,7 @@ import tech.meliora.natujenge.threads.enumeration.OrderStatus;
 import tech.meliora.natujenge.threads.errors.SendSMSException;
 import tech.meliora.natujenge.threads.repository.OrderRepository;
 import tech.meliora.natujenge.threads.sendsms.SMSSender;
+import tech.meliora.natujenge.threads.sendsms.impl.MelioraHTTPSMSSender;
 import tech.meliora.natujenge.threads.util.OrderUtil;
 
 import java.io.IOException;
