@@ -59,10 +59,13 @@ public class ThreadApp {
          *
          * required by order repository to send sms
          *
-         *
-         * ./satr
          */
-        SMSSender smsSender = new MelioraHTTPSMSSender();
+        String sendSMSEndpoint = "https://onehop-api.meliora.co.ke/api/messaging/sendsms";
+        String apiKey = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDEiLCJvaWQiOjEwMSwidWlkIjoiN2Y3Nm" +
+                "FjYzUtYjYxZi00YWFlLWE1ZTAtNjFmMDZlODcxM2Y1IiwiYXBpZCI6MjEsImlhdCI6MTYyNDk1ODM0NSw" +
+                "iZXhwIjoxOTY0OTU4MzQ1fQ.oN77l1LEIVIg5KK8hPrTI50iTuTUeeb3RpLGZiJTauaBjVak9J4yc4jtsi_lA" +
+                "VL7UY6gkNnIEaeEsNW-4xvR3w";
+        SMSSender smsSender = new MelioraHTTPSMSSender(sendSMSEndpoint, apiKey);
         OrderProcessor orderProcessor = new OrderProcessor(orderRepository, smsSender);
         logger.info("system|finished initializing orderProcessor");
 
@@ -89,7 +92,6 @@ public class ThreadApp {
         /**
          * Part 6: Register shutdown hook
          */
-
         Runtime.getRuntime().addShutdownHook(new Thread("shutdown-hook") {
 
             @Override
