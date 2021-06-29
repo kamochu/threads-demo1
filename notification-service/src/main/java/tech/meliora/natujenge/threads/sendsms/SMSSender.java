@@ -3,6 +3,10 @@ package tech.meliora.natujenge.threads.sendsms;
 import tech.meliora.natujenge.threads.domain.Order;
 import tech.meliora.natujenge.threads.errors.SendSMSException;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+
 public interface SMSSender {
     /**
      * sends sms and returns message id from the sms gateway
@@ -13,5 +17,5 @@ public interface SMSSender {
      *
      * @throws SendSMSException
      */
-    public String sendSMS(String msisdn, String message) throws SendSMSException;
+    public String sendSMS(String msisdn, String message) throws SendSMSException, IOException, NoSuchAlgorithmException, KeyManagementException;
 }

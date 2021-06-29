@@ -1,5 +1,6 @@
 package tech.meliora.natujenge.threads;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import tech.meliora.natujenge.threads.datasource.DataSourceConfig;
 import tech.meliora.natujenge.threads.datasource.DataSourceManager;
@@ -7,6 +8,7 @@ import tech.meliora.natujenge.threads.datasource.impl.HikariDataSourceManager;
 import tech.meliora.natujenge.threads.repository.OrderRepository;
 import tech.meliora.natujenge.threads.sendsms.SMSSender;
 import tech.meliora.natujenge.threads.sendsms.impl.MelioraHTTPSMSSender;
+import tech.meliora.natujenge.threads.sendsms.impl.SMPPSMSSender;
 
 import javax.sql.DataSource;
 
@@ -15,6 +17,8 @@ public class ThreadApp {
     private final static Logger logger = Logger.getLogger("main");
 
     public static void main(String[] args) throws Exception {
+
+        BasicConfigurator.configure();
 
         logger.info("system|starting our thread app");
 
@@ -56,10 +60,14 @@ public class ThreadApp {
          *
          * required by order repository to send sms
          *
-         *
-         * ./satr
          */
-        SMSSender smsSender = new MelioraHTTPSMSSender();
+        String sendSMSEndpoint = "https://onehop-api.meliora.co.ke/api/messaging/sendsms";
+        String apiKey = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDEiLCJvaWQiOjEwMSwidWlkIjoiN2Y3Nm" +
+                "FjYzUtYjYxZi00YWFlLWE1ZTAtNjFmMDZlODcxM2Y1IiwiYXBpZCI6MjEsImlhdCI6MTYyNDk1ODM0NSw" +
+                "iZXhwIjoxOTY0OTU4MzQ1fQ.oN77l1LEIVIg5KK8hPrTI50iTuTUeeb3RpLGZiJTauaBjVak9J4yc4jtsi_lA" +
+                "VL7UY6gkNnIEaeEsNW-4xvR3w";
+        SMSSender smsSender = new MelioraHTTPSMSSender(sendSMSEndpoint, apiKey);
+        //SMSSender smsSender = new SMPPSMSSender();
         OrderProcessor orderProcessor = new OrderProcessor(orderRepository, smsSender);
         logger.info("system|finished initializing orderProcessor");
 
@@ -86,7 +94,6 @@ public class ThreadApp {
         /**
          * Part 6: Register shutdown hook
          */
-
         Runtime.getRuntime().addShutdownHook(new Thread("shutdown-hook") {
 
             @Override

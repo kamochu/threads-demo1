@@ -5,7 +5,9 @@ import tech.meliora.natujenge.threads.domain.Order;
 public class OrderUtil {
 
     public static String generateSMS(Order order) {
-        String message = "generate-a-new-sms-from-order-object";
+        String message = "Dear " + order.getCustomerName() + ", your order id " + order.getId()
+                + ", product: " + order.getProduct() + ", quantity: " + order.getQuantity()
+                + ", total: " + order.getTotal()+". You can pay via M-PESA pay bill number XXXXXXX.";
 
         return message;
     }
