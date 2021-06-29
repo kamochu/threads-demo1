@@ -6,10 +6,11 @@ import tech.meliora.natujenge.threads.enumeration.OrderStatus;
 import tech.meliora.natujenge.threads.errors.SendSMSException;
 import tech.meliora.natujenge.threads.repository.OrderRepository;
 import tech.meliora.natujenge.threads.sendsms.SMSSender;
-import tech.meliora.natujenge.threads.sendsms.impl.MelioraHTTPSMSSender;
 import tech.meliora.natujenge.threads.util.OrderUtil;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class OrderProcessor {
@@ -26,7 +27,7 @@ public class OrderProcessor {
         this.smsSender = smsSender;
     }
 
-    public void process(Order order) throws SendSMSException, SQLException, IOException {
+    public void process(Order order) throws SendSMSException, SQLException, IOException, NoSuchAlgorithmException, KeyManagementException {
         //generate sms
         String sms = OrderUtil.generateSMS(order);
         String msisdn = order.getPhoneNumber();
