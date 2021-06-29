@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<db-pollers>
+    <poller id="1" name="TIARA_DEV_Server_Demo_Poller" enabled="true">
+        <properties>
+            <property name="batch.size">2000</property>
+            <property name="sleep.time">1000</property>
+            <property name="update-threads">5</property>
+            <property name="default-sender">KCB</property>
+            <property name="default-org">6</property>
+            <property name="message-type">1</property>
+            <property name="autoIncrementId">true</property>
+        </properties>
+        <datasource>
+            <id>MAIN</id>
+            <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
+            <jdbcUrl>jdbc:mysql://51.15.211.168:3306/demo</jdbcUrl>
+            <username>ucm</username>
+            <password>4rfvBHU*</password>
+            <cachePrepStmts>true</cachePrepStmts>
+            <prepStmtCacheSize>250</prepStmtCacheSize>
+            <prepStmtCacheSqlLimit>2048</prepStmtCacheSqlLimit>
+            <useSSL>false</useSSL>
+            <minimumIdle>30</minimumIdle>
+            <maximumPoolSize>100</maximumPoolSize>
+            <isAutoCommit>true</isAutoCommit>
+            <connectTimeout>30000</connectTimeout>
+            <idleTimeout>30000</idleTimeout>
+            <isReadOnly>false</isReadOnly>
+        </datasource>
+        <encryption>
+            <mode>AES</mode>
+            <aesMode>AES/CBC/PKCS5Padding</aesMode>
+            <aesBlockSize>16</aesBlockSize>
+            <secretKey>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</secretKey>
+        </encryption>
+        <queries>
+            <pollQuery>SELECT id,senderid,msisdn,message FROM tbl_messages WHERE status = 'NOT-SENT' AND id > ? limit 10</pollQuery>
+            <pollIntoFields>id,src_address,dst_address,message</pollIntoFields>
+            <updateSending>UPDATE tbl_messages SET status='SENDING', send_time = NOW(), last_updated_on = NOW() WHERE id=?</updateSending>
+            <updateSendingCols />
+            <updateSent>UPDATE tbl_messages SET status='SENT', send_time = NOW(), last_updated_on = NOW() WHERE id=?</updateSent>
+            <updateSentCols />
+            <updateSendFail>UPDATE tbl_messages SET status='SENT', send_time = NOW(), last_updated_on = NOW() WHERE id=?</updateSendFail>
+            <updateSendFailCols />
+            <updateDelivered>UPDATE tbl_messages SET delivery_status='DELIVERED', delivery_time = NOW(), last_updated_on = NOW() WHERE id=?</updateDelivered>
+            <updateDeliveredCols />
+            <updateNotDelivered>UPDATE tbl_messages SET delivery_status='NOT-DELIVERED', delivery_time = NOW(), last_updated_on = NOW() WHERE id=?</updateNotDelivered>
+            <updateNotDeliveredCols>id</updateNotDeliveredCols>
+        </queries>
+    </poller>
+</db-pollers>

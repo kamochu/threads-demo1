@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app>
+    <properties>
+        <property name="orgId">-1</property>
+        <property name="appId">sdp</property>
+        <property name="nodeId">dcc-gateway</property>
+        <property name="instanceIdPath">/apps/</property>
+        <property name="monitorWidowDuration">60000</property>
+        <property name="monitoringUrl">https://mulika.meliora.co.ke/api/statistics/report</property>
+        <property name="monitoringAPIKey">eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtZWxpb3JhLnRlY2giLCJhdXRoIjoiUk9MRV9BUEkiLCJvaWQiOjMsIm90eXBlIjoiQ0xJRU5UIiwiZXhwIjoxODkzOTI0MzI5fQ.GR6M5V1XSxb98T3dRMZsiAbQTRm8QBqThoHmDj84desni8wNb9xcN1o6CTc7q_lyotGWb7f6Vo0b6MlIT7NiPA</property>
+        <property name="startMonitorThread">true</property>
+        <property name="acceptorPort">8898</property>
+        <property name="acceptorDefaultService">pre</property>
+        <property name="connectTimeout">2000</property>
+        <property name="readTimeout">5000</property>
+    </properties>
+    <services>
+        <service name="sinput">
+            <threadCount>10</threadCount>
+            <queueSizeLimit>1000</queueSizeLimit>
+            <tpsLimit>10000</tpsLimit>
+            <processorClass>tech.meliora.sdp.dcc.gateway.processors.SocketInputProcessor</processorClass>
+            <properties>
+                <property name="key">value</property>
+            </properties>
+        </service>
+        <service name="soutput">
+            <threadCount>10</threadCount>
+            <queueSizeLimit>1000</queueSizeLimit>
+            <tpsLimit>10000</tpsLimit>
+            <processorClass>tech.meliora.sdp.dcc.gateway.processors.SocketOutputProcessor</processorClass>
+            <properties>
+                <property name="key">value</property>
+            </properties>
+        </service>
+        <service name="pre">
+            <threadCount>10</threadCount>
+            <queueSizeLimit>1000</queueSizeLimit>
+            <tpsLimit>10000</tpsLimit>
+            <processorClass>tech.meliora.sdp.dcc.gateway.processors.PreProcessor</processorClass>
+            <properties>
+                <property name="key">value</property>
+            </properties>
+        </service>
+        <service name="ccr">
+            <threadCount>10</threadCount>
+            <queueSizeLimit>1000</queueSizeLimit>
+            <tpsLimit>10000</tpsLimit>
+            <processorClass>tech.meliora.sdp.dcc.gateway.processors.CCRProcessor</processorClass>
+            <properties>
+                <property name="key">value</property>
+            </properties>
+        </service>
+        <service name="cca">
+            <threadCount>10</threadCount>
+            <queueSizeLimit>1000</queueSizeLimit>
+            <tpsLimit>10000</tpsLimit>
+            <processorClass>tech.meliora.sdp.dcc.gateway.processors.CCAProcessor</processorClass>
+            <properties>
+                <property name="key">value</property>
+            </properties>
+        </service>
+    </services>
+    <helpers>
+        <helper name="socketChannel">
+            <helperClass>tech.meliora.tiara.db.poller.helpers.SocketChannelHelper</helperClass>
+            <properties>
+                <property name="reloadTime">60000</property>
+                <property name="key">value</property>
+            </properties>
+        </helper>
+
+        <helper name="transaction">
+            <helperClass>tech.meliora.tiara.db.poller.helpers.TransactionHelper</helperClass>
+            <properties>
+                <property name="reloadTime">60000</property>
+                <property name="key">value</property>
+            </properties>
+        </helper>
+
+        <helper name="huaweicbs">
+            <helperClass>tech.meliora.tiara.db.poller.helpers.HuaweiCBSHelper</helperClass>
+            <properties>
+                <property name="reloadTime">60000</property>
+                <property name="key">value</property>
+            </properties>
+        </helper>
+
+    </helpers>
+    <remote />
+</app>
