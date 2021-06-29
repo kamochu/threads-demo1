@@ -82,7 +82,7 @@ public class ThreadApp {
         /**
          * Part 5: Starting the threads
          */
-        Thread pollerThread = new Thread(poller, "poller-thread");
+        Thread pollerThread = new Thread(poller, "poller");
         pollerThread.start();
         logger.info("system|finished starting poller thread");
 
@@ -90,7 +90,7 @@ public class ThreadApp {
          * Part 6: Register shutdown hook
          */
 
-        Runtime.getRuntime().addShutdownHook(new Thread("shutdown-hook-thread") {
+        Runtime.getRuntime().addShutdownHook(new Thread("shutdown-hook") {
 
             @Override
             public void run() {
@@ -101,7 +101,6 @@ public class ThreadApp {
                 logger.info("system|interrupted poller thread to stop");
             }
         });
-
 
     }
 
