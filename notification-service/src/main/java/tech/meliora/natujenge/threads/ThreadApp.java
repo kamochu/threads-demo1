@@ -1,5 +1,6 @@
 package tech.meliora.natujenge.threads;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import tech.meliora.natujenge.threads.datasource.DataSourceConfig;
 import tech.meliora.natujenge.threads.datasource.DataSourceManager;
@@ -15,6 +16,8 @@ public class ThreadApp {
     private final static Logger logger = Logger.getLogger("main");
 
     public static void main(String[] args) throws Exception {
+
+        BasicConfigurator.configure();
 
         logger.info("system|starting our thread app");
 
